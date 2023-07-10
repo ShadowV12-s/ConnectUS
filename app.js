@@ -45,13 +45,9 @@ const db = new sqlite3.Database('./test.db', sqlite3.OPEN_READWRITE, (err) => {
 // });
 
 
-
-//
-//
 //
 //
 //Service table
-
 
 // Create table
 // sql = `CREATE TABLE service(id INTEGER PRIMARY KEY, service_name TEXT, service_description TEXT, time_date DATETIME, amount_of_hours INTEGER, location TEXT, contacts TEXT)`;
