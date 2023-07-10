@@ -1,0 +1,59 @@
+{
+    "cells": [
+        {
+            "language": "typescript",
+            "source": [
+                "console.log(\"Hello World\")"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Hello World",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const sqlite3 = require(\"sqlite3\").verbose();\r\nlet sql;\r\n\r\n// connect to DB\r\nconst db = new sqlite3.Database('./test.db', sqlite3.OPEN_READWRITE, (err) => {\r\n    if (err) return console.error(err.message);\r\n});\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "// Create table\r\nsql = `CREATE TABLE users(id INTEGER PRIMARY KEY, first_name, last_name, username, password, email)`;\r\ndb.run(sql);\r\n\r\n// Drop table\r\n// db.run(\"DROP TABLE users\");"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "# Insert data into table"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "// Insert data into table\r\n// sql = `INSERT INTO users(first_name, last_name, username, password, email) VALUES (?,?,?,?,?)`;\r\n// db.run(\r\n//     sql,\r\n//     [\"Yu\", \"Huang\", \"Huang_user\", \"test\", \"Yu@gmail.com\"],\r\n//     (err) => {\r\n//         if (err) return console.error(err.message);\r\n//     }\r\n// );\r\n\r\n// Update data\r\n// sql = `UPDATE users SET first_name = ? WHERE id = ?`;\r\n// db.run(sql, ['Jake', 1], (err) => {\r\n//     if (err) return console.error(err.message);\r\n// });\r\n\r\n//delete data\r\n// sql = `DELETE FROM users WHERE id = ?`;\r\n// db.run(sql, [3], (err) => {\r\n//     if (err) return console.error(err.message);\r\n// });\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n/* Query the data\r\nsql = `SELECT * FROM users`;\r\ndb.all(sql, [], (err, rows) => {\r\n    if (err) return console.error(err.message);\r\n    rows.forEach((row) => {\r\n        console.log(row);\r\n    });\r\n});\r\n*/"
+            ],
+            "outputs": []
+        }
+    ]
+}
