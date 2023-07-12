@@ -15,6 +15,12 @@ router.get('/about', (req, res) => {
   res.render('about', { pageTitle: 'About' });
 });
 
+//about page
+router.get('/service', (req, res) => {
+  console.log("----At the service page")
+  res.render('service', { pageTitle: 'Service' });
+});
+
 //map page
 router.get('/map', (req, res) => {
     console.log("----At the map page")
@@ -22,7 +28,7 @@ router.get('/map', (req, res) => {
   });
 
 //contact page
-router.get('/contact', (req, res) => {
+router.get('/contacts', (req, res) => {
     console.log("----At the Contacts page")
     res.render('contacts', { pageTitle: 'Contacts' });
   });
