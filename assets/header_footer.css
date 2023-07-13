@@ -1,55 +1,58 @@
 .site-header, .site-footer {
-    background-color: #838383;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #000000;
-  }
-  
-  body {
-    font-family: "Roboto", sans-serif;
-  }
-  
-  ul {
-    list-style: none;
-  }
-  
-  .brand {
-    font-weight: bold;
-    font-size: 26px;
-    letter-spacing: 1px;
-  }
-  
-  span {
-    font-size: 60px;
-    letter-spacing: 0;
-    border: 1px solid green;
-  }
-  
-  .nav__wrapper {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 1 ;
-    justify-content: center;
-  }
-  
-  .nav__item a {
-    display: flex;
-    padding: 1.5rem 1rem;
-    text-transform: uppercase;
-    font-size: 16px;
-    transition: background-color 0.3s; 
-  }
-  
-  .nav__item1 a {
-    display: flex;
-    padding: 1rem 1rem;
-    text-transform: uppercase;
-    font-size: 16px;
-    transition: background-color 0.3s; 
-  }
-  
-  .nav__item a:hover , .nav__item1 a:hover {
-    background-color: rgb(168, 168, 168); 
-  }
+  background-color: #838383;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+ul {
+  list-style: none;
+}
+
+.brand {
+  font-weight: bold;
+  font-size: 26px;
+  letter-spacing: 1px;
+}
+
+span {
+  font-size: 60px;
+  letter-spacing: 0;
+  border: 1px solid green;
+}
+
+.nav__wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1 ;
+  justify-content: center;
+}
+
+.nav__item a {
+  display: flex;
+  padding: 1.5rem 1rem;
+  text-transform: uppercase;
+  font-size: 16px;
+  transition: background-color 0.3s; 
+}
+
+.nav__item1 a {
+  display: flex;
+  padding: 1rem 1rem;
+  text-transform: uppercase;
+  font-size: 16px;
+  transition: background-color 0.3s; 
+}
+
+.nav__item a:hover , .nav__item1 a:hover {
+  background-color: rgb(168, 168, 168); 
+}
