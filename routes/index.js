@@ -33,4 +33,10 @@ router.get('/contacts', (req, res) => {
     res.render('contacts', { pageTitle: 'Contacts' });
   });
 
+//signIn page
+router.get('/signIn', (req, res) => {
+  console.log("----At the Signin page")
+  res.render('signIn', { pageTitle: 'Signin' });
+});
+
 module.exports = router;

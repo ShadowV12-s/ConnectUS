@@ -7,7 +7,6 @@ body, html {
 
 body {
   font-family: Arial, sans-serif;
-
   text-align: center;
 }
 
@@ -25,6 +24,28 @@ main {
   justify-content: center;
   align-items: center;
   font-size: 200px;
+}
+
+p1 {
+  background-color: rgb(178, 193, 197);
+  font-size: 30px;
+  border-bottom: 2px solid black;
+}
+
+.box3 {
+  height: 30vb;
+  background-color: rgb(178, 193, 197);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 40px;
+}
+
+.statbox1, .statbox2, .statbox3 {
+  background-color: rgb(255, 0, 0);
+  width: 200px;
+  height: 200px;
 }
 
 .container {
@@ -72,24 +93,3 @@ p {
   overflow-y: auto; 
 }
 
-p1 {
-  background-color: rgb(178, 193, 197);
-  font-size: 30px;
-  border-bottom: 2px solid black;
-}
-
-.box3 {
-  height: 30vb;
-  background-color: rgb(178, 193, 197);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  justify-content: space-evenly;
-  gap: 40px;
-}
-
-.statbox1, .statbox2, .statbox3 {
-  background-color: rgb(255, 0, 0);
-  width: 200px;
-  height: 200px;
-}

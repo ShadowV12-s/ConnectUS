@@ -56,3 +56,9 @@ span {
 .nav__item a:hover , .nav__item1 a:hover {
   background-color: rgb(168, 168, 168); 
 }
+
+small {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
