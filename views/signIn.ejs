@@ -4,8 +4,10 @@
   <title><%= pageTitle %> - ServiceUs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/signIn.css">
+  <link rel="stylesheet" type="text/css" href="/header_footer.css">
 </head>
 <body>
+  <%- include('./header') %>
 <h1>Welcome to the <%= pageTitle %> page!</h1>
   <main>  
     <div class="login-box">
@@ -29,6 +31,6 @@
         </form>
       </div>
   </main>
-
+  <%- include('./footer') %>
 </body>
 </html>

@@ -18,27 +18,24 @@ body, html {
   
   .box {
     width: 100%;
-    height: 352px;
+    height: 90px;
     background-color: rgb(173, 206, 244);
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    font-size: 200px;
+    font-size: 70px;
   }
 
-  .box1 {
-    width: 100%;
-    height: 250px;
-    background-color: rgb(173, 206, 244);
+
+  .all {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    font-size: 100px;
+    flex-direction: row;
   }
+  
 
   .container {
     background-color: rgb(255, 255, 255);
-    width: 100%;
+    width: 95%;
     height: auto;
   }
 
@@ -73,5 +70,17 @@ body, html {
     align-items: flex-start;
     line-height: 150%;
     text-indent: 5px;
+  }
+
+
+  .map{
+    width: 5%;
+    height: 100%;
+    background-color: rgb(67, 244, 13);
+    display: flex;
+    justify-content: left;
+   align-items: center;
+   margin-left: auto;
+  right: 0;
   }
   

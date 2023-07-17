@@ -5,37 +5,31 @@ const router = express.Router();
 
 // home page
 router.get('/', (req, res) => {
-  console.log("----At the Home page")
   res.render('home', { pageTitle: 'Home' });
 });
 
 //about page
 router.get('/about', (req, res) => {
-  console.log("----At the about page")
   res.render('about', { pageTitle: 'About' });
 });
 
 //about page
 router.get('/service', (req, res) => {
-  console.log("----At the service page")
   res.render('service', { pageTitle: 'Service' });
 });
 
-//map page
-router.get('/map', (req, res) => {
-    console.log("----At the map page")
-    res.render('map', { pageTitle: 'maps' });
+//calender page
+router.get('/calender', (req, res) => {
+    res.render('calender', { pageTitle: 'calender' });
   });
 
-//contact page
-router.get('/contacts', (req, res) => {
-    console.log("----At the Contacts page")
-    res.render('contacts', { pageTitle: 'Contacts' });
+//profile page
+router.get('/profile', (req, res) => {
+    res.render('profile', { pageTitle: 'Profile' });
   });
 
 //signIn page
 router.get('/signIn', (req, res) => {
-  console.log("----At the Signin page")
   res.render('signIn', { pageTitle: 'Signin' });
 });
 
