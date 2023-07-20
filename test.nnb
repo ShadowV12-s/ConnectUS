@@ -1,0 +1,118 @@
+{
+    "cells": [
+        {
+            "language": "typescript",
+            "source": [
+                "const sqlite3 = require(\"sqlite3\").verbose();"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "async function getservices(){\r\n\r\nreturn new Promise((resolve,reject) =>{\r\n    const db = new sqlite3.Database('data/test.db', sqlite3.OPEN_READWRITE, (err) => {\r\n        if (err) {reject (err)};\r\n    });\r\n    \r\n    // Query the data\r\n    let servicequery = `SELECT * FROM service`;\r\n    db.all(servicequery, [], (err, rows) => {\r\n        if (err) {reject (err)}\r\n        else{resolve(rows)}\r\n    });\r\n    \r\n    db.close()\r\n})\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const sql = `INSERT INTO service(service_name, service_description, time_date, amount_of_hours, location, contacts) VALUES (?, ?, ?, ?, ?, ?)`;\r\nconst values = [\"Hospital\", \"Helping the hospice care paitents\", \"March 19, 2023 @ 7:00am\", \"2\", \"1234 hospital street\", \"care@example.com\"];\r\n\r\nconst db = new sqlite3.Database('data/test.db', sqlite3.OPEN_READWRITE, (err) => {\r\n    if (err) {\r\n      console.error(err.message);\r\n    } else {\r\n      db.run(sql, values, (err) => {\r\n        if (err) {\r\n          console.error(err.message);\r\n        } else {\r\n          console.log(\"Data inserted successfully.\");\r\n        }\r\n      });"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                "Data inserted successfully.",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "let services = await getservices()"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "for (const service of services){\r\n    let html = `<div class=\"serviceBox\"> \r\n    <div class=\"serviceImage\">Image</div>\r\n    <div class=\"serviceText\">\r\n      <text>${service.service_name} </text>\r\n      <span class=\"service-description\"> This is a food drive for Asian American during Thanksgiving</span>\r\n      <text2> November 16, 6:00am - 3:00pm</text2> \r\n      <text3> Hours: 9</text3>\r\n    </div>\r\n  </div>`\r\n  console.log(html)\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "<div class=\"serviceBox\"> ",
+                                "    <div class=\"serviceImage\">Image</div>",
+                                "    <div class=\"serviceText\">",
+                                "      <text>AC/DC </text>",
+                                "      <span class=\"service-description\"> This is a food drive for Asian American during Thanksgiving</span>",
+                                "      <text2> November 16, 6:00am - 3:00pm</text2> ",
+                                "      <text3> Hours: 9</text3>",
+                                "    </div>",
+                                "  </div>",
+                                "<div class=\"serviceBox\"> ",
+                                "    <div class=\"serviceImage\">Image</div>",
+                                "    <div class=\"serviceText\">",
+                                "      <text>AC/ssDC </text>",
+                                "      <span class=\"service-description\"> This is a food drive for Asian American during Thanksgiving</span>",
+                                "      <text2> November 16, 6:00am - 3:00pm</text2> ",
+                                "      <text3> Hours: 9</text3>",
+                                "    </div>",
+                                "  </div>",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

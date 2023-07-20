@@ -1,36 +1,46 @@
 const express = require('express');
 const router = express.Router();
+const data = require('./data.js'); 
 
-// Define routes
 
-// home page
-router.get('/', (req, res) => {
-  res.render('home', { pageTitle: 'Home' });
-});
+  // Define routes
 
-//about page
-router.get('/about', (req, res) => {
-  res.render('about', { pageTitle: 'About' });
-});
-
-//about page
-router.get('/service', (req, res) => {
-  res.render('service', { pageTitle: 'Service' });
-});
-
-//calender page
-router.get('/calender', (req, res) => {
-    res.render('calender', { pageTitle: 'calender' });
+  // home page
+  router.get('/', (req, res) => {
+    res.render('home', { pageTitle: 'Home' });
   });
 
-//profile page
-router.get('/profile', (req, res) => {
-    res.render('profile', { pageTitle: 'Profile' });
+  //about page
+  router.get('/about', (req, res) => {
+    res.render('about', { pageTitle: 'About' });
   });
 
-//signIn page
-router.get('/signIn', (req, res) => {
-  res.render('signIn', { pageTitle: 'Signin' });
-});
+  //service page
+  router.get('/service', (req, res) => {
+    data.getservices()
+      .then((service_rows) => {
+        res.render('service', { pageTitle: 'Service', services: service_rows });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send('Internal Server Error');
+      });
+  });  
 
-module.exports = router;
+
+  //calender page
+  router.get('/calender', (req, res) => {
+      res.render('calender', { pageTitle: 'calender' });
+    });
+
+  //profile page
+  router.get('/profile', (req, res) => {
+      res.render('profile', { pageTitle: 'Profile' });
+    });
+
+  //signIn page
+  router.get('/signIn', (req, res) => {
+    res.render('signIn', { pageTitle: 'Signin' });
+  });
+
+  module.exports = router;

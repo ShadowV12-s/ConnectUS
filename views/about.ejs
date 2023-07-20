@@ -3,21 +3,29 @@
 <head>
   <title>About - My Website</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="/styles.css">
   <link rel="stylesheet" type="text/css" href="/header_footer.css">
+  <link rel="stylesheet" type="text/css" href="/about.css">
+  <link rel="stylesheet" type="text/css" href="/about1.css">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap">
 </head>
 <body>
   <!-- Include the header -->
   <%- include('./header') %>
-
-  <h1>Welcome to the About Page</h1>
-  <p>This is the about page of my website.</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-
+  <main>
+  <div class="body1">
+    
+      <h1>Welcome to the About Page</h1>
+      <div class="tab">
+        <div class="tab1">
+          <%- include('./aboutTab') %>
+            <div class="tabText"></div>
+        </div>
+      </div>
+    
+  </div>
+</main>
   <!-- Include the footer -->
   <%- include('./footer') %>
+
 </body>
 </html>
