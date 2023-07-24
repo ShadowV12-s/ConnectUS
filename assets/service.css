@@ -67,4 +67,21 @@
    margin-left: auto;
   right: 0;
   }
+
+.submit{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+}
+
+  .submitButton{
+    width: auto;
+    height: auto;
+    transition: background-color 0.3s; 
+    list-style: none;
+  }
   
+  .submitButton:hover{
+    background-color: rgb(227, 11, 11); 
+  }

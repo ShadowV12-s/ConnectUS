@@ -11,7 +11,7 @@ const db = new sqlite3.Database('./test.db', sqlite3.OPEN_READWRITE, (err) => {
 // db.run(sql);
 
 // Drop table
-// db.run("DROP TABLE users");
+db.run("DROP TABLE users");
 
 // Insert data into table
 // sql = `INSERT INTO users(first_name, last_name, username, password, email) VALUES (?,?,?,?,?)`;
@@ -60,16 +60,16 @@ const db = new sqlite3.Database('./test.db', sqlite3.OPEN_READWRITE, (err) => {
 // db.run("DROP TABLE service");
 
 // Insert data into table
-sql = `INSERT INTO service(service_name, service_description, time_date, amount_of_hours, location, contacts) VALUES (?, ?, ?, ?, ?, ?)`;
-const values = ["Helping Hand", "Helping the homeless shelter", "January  19, 2023 @ 7:00am", "2", "1234 homeless street", "Hand@example.com"];
+// sql = `INSERT INTO service(service_name, service_description, time_date, amount_of_hours, location, contacts) VALUES (?, ?, ?, ?, ?, ?)`;
+// const values = ["Helping Hand", "Helping the homeless shelter", "January  19, 2023 @ 7:00am", "2", "1234 homeless street", "Hand@example.com"];
 
-db.run(sql, values, (err) => {
-    if (err) {
-        console.error(err.message);
-    } else {
-        console.log("Data inserted successfully.");
-    }
-});
+// db.run(sql, values, (err) => {
+//     if (err) {
+//         console.error(err.message);
+//     } else {
+//         console.log("Data inserted successfully.");
+//     }
+// });
 
 // Update data
 // sql = `UPDATE service SET first_name = ? WHERE id = ?`;

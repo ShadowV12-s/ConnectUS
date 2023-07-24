@@ -11,26 +11,39 @@
   <%- include('./header') %>
 <h1>Welcome to the <%= pageTitle %> page!</h1>
   <main>  
-    <div class="login-box">
-        <h2>Login</h2>
-        <form>
-          <div class="user-box">
-            <input type="text" name="" required="">
-            <label>Username</label>
-          </div>
-          <div class="user-box">
-            <input type="password" name="" required="">
-            <label>Password</label>
-          </div>
-          <a href="#">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Submit
-          </a>
+    <div class="signup-box">
+        <h2>Sign Up</h2>
+        <form action="/signup" method="post">
+          <label for="firstName">First Name:</label>
+          <input type="text" name="firstName" required><br>
+      
+          <label for="lastName">Last Name:</label>
+          <input type="text" name="lastName" required><br>
+      
+          <label for="email">Email:</label>
+          <input type="email" name="email" required><br>
+      
+          <label for="password">Password:</label>
+          <input type="password" name="password" required><br>
+      
+          <input type="submit" value="Sign Up">
         </form>
       </div>
+
+
+      <div class="login-box">
+        <h2>Login</h2>
+        <form action="/routes" method="post">
+          <label for="email">Email:</label>
+          <input type="email" name="email" required><br>
+      
+          <label for="password">Password:</label>
+          <input type="password" name="password" required><br>
+      
+          <input type="submit" value="Login">
+        </form>
+      </div>
+      
   </main>
   <%- include('./footer') %>
 </body>

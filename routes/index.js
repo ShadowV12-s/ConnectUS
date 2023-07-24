@@ -27,6 +27,10 @@ const data = require('./data.js');
       });
   });  
 
+//submit service page
+router.get('/submitService', (req, res) =>{
+  res.render('submitService', { pageTitle: 'submitService' });
+})
 
   //calender page
   router.get('/calender', (req, res) => {

@@ -61,6 +61,45 @@
         {
             "language": "typescript",
             "source": [
+                "async function deleteService(serviceId) {\r\n  return new Promise((resolve, reject) => {\r\n    const db = new sqlite3.Database('data/test.db', sqlite3.OPEN_READWRITE, (err) => {\r\n      if (err) reject(err);\r\n    });\r\n\r\n    // Delete the row with the specified ID\r\n    let deleteQuery = `DELETE FROM service WHERE id = ?`;\r\n    db.run(deleteQuery, serviceId, (err) => {\r\n      if (err) reject(err);\r\n      else resolve(\"Row deleted successfully.\");\r\n    });\r\n\r\n    db.close();\r\n  });\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "  try {\r\n    await deleteService(5);\r\n    console.log(\"Row deleted successfully.\");\r\n  } catch (err) {\r\n    console.error(err.message);\r\n  }\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Row deleted successfully.",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
                 "let services = await getservices()"
             ],
             "outputs": [
@@ -107,6 +146,106 @@
                                 "    </div>",
                                 "  </div>",
                                 "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const sqlite3 = require('sqlite3').verbose();"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const sqlite3 = require('sqlite3').verbose();\r\n\r\nconst db = new sqlite3.Database('data/test.db', (err) => {\r\n  if (err) {\r\n    console.error('Error connecting to the database:', err.message);\r\n  } else {\r\n    console.log('Connected to the database.');\r\n    createTable();\r\n  }\r\n});\r\n\r\nfunction createTable() {\r\n  const createTableQuery = `\r\n    CREATE TABLE IF NOT EXISTS users (\r\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\r\n      first_name TEXT,\r\n      last_name TEXT,\r\n      email TEXT,\r\n      password TEXT\r\n    )`;\r\n\r\n  db.run(createTableQuery, (err) => {\r\n    if (err) {\r\n      console.error('Error creating table:', err.message);\r\n    } else {\r\n      console.log('Table \"users\" created successfully.');\r\n    }\r\n\r\n    // Don't forget to close the connection when you're done working with the database\r\n    db.close((err) => {\r\n      if (err) {\r\n        console.error('Error closing the database:', err.message);\r\n      } else {\r\n        console.log('Connection to the database closed.');\r\n      }\r\n    });\r\n  });\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                "Connected to the database.",
+                                "Connection to the database closed.",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "try {\r\n    db.run(\"DROP TABLE IF EXISTS users\", (err) => {\r\n      if (err) {\r\n        console.error('Error dropping table:', err.message);\r\n      } else {\r\n        console.log(\"Table deleted successfully.\");\r\n      }\r\n    });\r\n  } catch (err) {\r\n    console.error(err.message);\r\n  }"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                "Table deleted successfully.",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "db.close((err) => {\r\n    if (err) {\r\n      console.error('Error closing the database:', err.message);\r\n    } else {\r\n      console.log('Connection to the database closed.');\r\n    }\r\n  });"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "Database {}"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Connection to the database closed.",
                                 ""
                             ]
                         }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%= pageTitle %> - ServiceUs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/common.css">
+  <link rel="stylesheet" type="text/css" href="/header_footer.css">
+  <link rel="stylesheet" type="text/css" href="/submitService.css">
+</head>
+<body>
+  <%- include('./header') %>
+  <main>  
+    <div class="form-container">
+        <h2>Add a New Service</h2>
+        <form action="/submit" method="post">
+          <input type="text" name="service_name" placeholder="Service Name" required><br>
+          <input type="text" name="service_description" placeholder="Service Description" required><br>
+          <input type="text" name="time_date" placeholder="Time and Date" required><br>
+          <input type="number" name="amount_of_hours" placeholder="Amount of Hours" required><br>
+          <input type="text" name="location" placeholder="Location" required><br>
+          <input type="text" name="contacts" placeholder="Contacts" required><br>
+          <button type="submit">Add Service</button>
+        </form>
+      </div>
+    
+  </main>
+  <%- include('./footer') %>
+</body>
+</html>
