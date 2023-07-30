@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const data = require('./data.js'); 
-
+const data = require('../data/data'); 
 
   // Define routes
 
@@ -28,8 +27,8 @@ const data = require('./data.js');
   });  
 
 //submit service page
-router.get('/submitService', (req, res) =>{
-  res.render('submitService', { pageTitle: 'submitService' });
+router.get('/submit-service', (req, res) =>{
+  res.render('submit-service', { pageTitle: 'submit-service' });
 })
 
   //calender page
@@ -42,9 +41,14 @@ router.get('/submitService', (req, res) =>{
       res.render('profile', { pageTitle: 'Profile' });
     });
 
-  //signIn page
-  router.get('/signIn', (req, res) => {
-    res.render('signIn', { pageTitle: 'Signin' });
+  //sign-in page
+  router.get('/sign-in', (req, res) => {
+    res.render('sign-in', { pageTitle: 'Sign-in' });
   });
+
+  router.get('/user_info', (req, res) => {
+    res.render('user_info', { pageTitle: 'user_info' });
+  });
+
 
   module.exports = router;

@@ -1,0 +1,12 @@
+<%- include('./header') %>
+<h1>User Information</h1>
+
+<% if (user) { %>
+  <p><strong>First Name:</strong> <%= user.first_name %></p>
+  <p><strong>Last Name:</strong> <%= user.last_name %></p>
+  <p><strong>Email:</strong> <%= user.email %></p>
+<% } else { %>
+  <p>User not found or not authenticated</p>
+<% } %>
+
+<%- include('./footer') %>

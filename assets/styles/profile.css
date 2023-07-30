@@ -4,21 +4,25 @@
 
 
 .banners {
-  background-color: darkolivegreen;
-  height: 300px;
+  background-image: url("images/111111.jpg");
+  height: 400px;
   width: 100%;
   display: flex;
   align-items: flex-end;
+  background-size: cover;
 }
+
 
 .profilePic {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background-color: sandybrown;
+  background-image: url("images/pfp.jpg");
+  background-position: center; /* Center the image both horizontally and vertically */
   margin-bottom: 1%;
   margin-left: 3.5%;
 }
+
 
 .nameBar {
   background-color: red;

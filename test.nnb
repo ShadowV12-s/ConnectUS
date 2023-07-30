@@ -20,6 +20,13 @@
             ]
         },
         {
+            "language": "markdown",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
             "language": "typescript",
             "source": [
                 "async function getservices(){\r\n\r\nreturn new Promise((resolve,reject) =>{\r\n    const db = new sqlite3.Database('data/test.db', sqlite3.OPEN_READWRITE, (err) => {\r\n        if (err) {reject (err)};\r\n    });\r\n    \r\n    // Query the data\r\n    let servicequery = `SELECT * FROM service`;\r\n    db.all(servicequery, [], (err, rows) => {\r\n        if (err) {reject (err)}\r\n        else{resolve(rows)}\r\n    });\r\n    \r\n    db.close()\r\n})\r\n}"

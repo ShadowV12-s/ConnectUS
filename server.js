@@ -2,13 +2,13 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = 3000;
-const signupController = require('./signupController');
-
+const signupController = require('./assets/script/signupController.js');
+const loginController = require('./assets/script/loginController.js');
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
 
 // Import the insertService function from data.js
-const { insertService } = require('./routes/data');
+const { insertService } = require('./data/data.js');
 
 // Middleware to parse incoming form data
 app.use(express.urlencoded({ extended: true }));
@@ -30,7 +30,7 @@ app.post('/submit', (req, res) => {
 
 
 // Use the signupController for signup routes--for signups
-app.use('/', signupController);
+app.use('/signup', signupController);
 
 // Set the path to the views directory
 app.use(express.static(path.join(__dirname, "assets")));
@@ -40,6 +40,9 @@ const routes = require('./routes/index');
 
 // Use the routes middleware
 app.use('/', routes);
+
+// Use the loginController for login routes
+app.use('/login', loginController);
 
 // Start the server
 app.listen(port, () => {

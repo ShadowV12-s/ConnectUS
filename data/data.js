@@ -21,7 +21,7 @@ async function getservices() {
       }
     });
   });
-}
+} 
 
 // Function to insert data into the "service" table
 function insertService(values) {
