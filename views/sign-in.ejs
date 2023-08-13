@@ -9,42 +9,60 @@
 </head>
 <body>
   <%- include('./header') %>
-<h1>Welcome to the <%= pageTitle %> page!</h1>
-  <main>  
-    <div class="signup-box">
-        <h2>Sign Up</h2>
-        <form action="/signup" method="post">
-          <label for="firstName">First Name:</label>
-          <input type="text" name="firstName" required><br>
-      
-          <label for="lastName">Last Name:</label>
-          <input type="text" name="lastName" required><br>
-      
-          <label for="email">Email:</label>
-          <input type="email" name="email" required><br>
-      
-          <label for="password">Password:</label>
-          <input type="password" name="password" required><br>
-      
-          <input type="submit" value="Sign Up">
-        </form>
-      </div> 
-
-
-      <div class="login-box">
-        <h2>Login</h2>
-        <form action="/routes" method="post">
-          <label for="email">Email:</label>
-          <input type="email" name="email" required><br>
-      
-          <label for="password">Password:</label>
-          <input type="password" name="password" required><br>
-      
-          <input type="submit" value="Login">
-        </form>
-      </div>
-      
+  <h1>Welcome to the <%= pageTitle %> page!</h1>
+  <main>
+    <div class="login-box">
+      <h2>Login</h2>
+      <!-- Add a link for "Login with Google" -->
+      <a href="/auth/google">Login with Google</a>
+      <!-- Add a logout button -->
+      <button id="logoutButton">Logout</button>
+    </div>
   </main>
   <%- include('./footer') %>
+  <script>
+    var accessToken = '<%= userAccessToken %>';
+
+    // Function to fetch user information using the access token
+    async function getUserInfo(accessToken) {
+      try {
+        const response = await fetch(`/api/user?access_token=${accessToken}`);
+        const userInfo = await response.json();
+
+        // Handle user information as needed
+        console.log(userInfo);
+        // You can update the UI to display user information here
+      } catch (error) {
+        console.error('Error fetching user information:', error);
+      }
+    }
+
+    // Call getUserInfo function with the access token
+    getUserInfo(accessToken);
+
+    // Add event listener for the logout button
+    const logoutButton = document.getElementById('logoutButton');
+    logoutButton.addEventListener('click', async () => {
+      try {
+        // Send a logout request to the server
+        const response = await fetch('/auth/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ access_token: accessToken })
+        });
+
+        if (response.status === 200) {
+          // Redirect the user to the login page after successful logout
+          window.location.href = '/login';
+        } else {
+          console.error('Logout failed');
+        }
+      } catch (error) {
+        console.error('Error during logout:', error);
+      }
+    });
+  </script>
 </body>
 </html>

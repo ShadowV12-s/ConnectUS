@@ -1,17 +1,15 @@
+/* Base styles */
 .site-header, .site-footer {
   background-color: #838383;
+}
+
+header {
+  padding: 0.5rem 1rem;
 }
 
 a {
   text-decoration: none;
   color: #000000;
-}
-
-body {
-  font-family: "Roboto", sans-serif;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
 ul {
@@ -20,12 +18,12 @@ ul {
 
 .brand {
   font-weight: bold;
-  font-size: 26px;
-  letter-spacing: 1px;
+  font-size: 1.7em; /* Use relative unit 'em' or 'rem' */
+  letter-spacing: 0.05em;
 }
 
 span {
-  font-size: 60px;
+  font-size: 2em; /* Use relative unit 'em' or 'rem' */
   letter-spacing: 0;
   border: 1px solid green;
 }
@@ -43,24 +41,25 @@ span {
 
 .nav__item a {
   display: flex;
-  padding: 1.5rem 2rem;
+  padding: 1.5em 2em; /* Use relative unit 'em' or 'rem' */
   text-transform: uppercase;
-  font-size: 100%;
+  font-size: 100%; /* Use relative unit 'em' or 'rem' */
   transition: background-color 0.3s; 
 }
 
 .nav__item1 a {
   display: flex;
-  padding: 1rem 1rem;
+  padding: 1em 1em; /* Use relative unit 'em' or 'rem' */
   text-transform: uppercase;
-  font-size: 16px;
+  font-size: 1em; /* Use relative unit 'em' or 'rem' */
   transition: background-color 0.3s; 
 }
 
-.nav__item a:hover , .nav__item1 a:hover {
+.nav__item a:hover, .nav__item1 a:hover {
   background-color: rgb(168, 168, 168); 
 }
 
+/* Footer styles */
 small {
   display: flex;
   justify-content: center;
@@ -70,6 +69,6 @@ small {
 footer {
   background-color: #727272;
   color: #fff;
-  padding: 10px;
-  margin-top: auto; /* Push footer to the bottom */
+  padding: 1em; /* Use relative unit 'em' or 'rem' */
+  margin-top: auto;
 }

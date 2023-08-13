@@ -1,46 +1,51 @@
+/* Set the height of body and html to 100% of the viewport height */
 body, html {
   height: 100%;
   min-height: 100%;
-  margin: 0; 
+  margin: 0;
   padding: 0;
 }
 
-  body {
-    font-family: 'Nunito', sans-serif ;
-    text-align: center;
-  }
-
-  main {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    --duration: .45s ;
-    --cubic: cubic-bezier(0.4, 0, 0.2, 1) ;
-    --color-1: #d5dadd ;
-    --color-2: #51d5c2 ;
-  }
-
-
-  .body1 {
-    height: auto;
-    margin-left: 18%;
-    margin-right: 18%;
-  }
-
-  h1 {
-    display: flex;
-    justify-content: flex-start;
-    margin: 3rem;
-  }
-
-.tab{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 5%;
+/* Use relative units for font size and font family */
+body {
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+  font-size: 16px; /* Use relative unit 'px' or 'em' or 'rem' */
 }
-.tab1{
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  --duration: .45s ;
+  --cubic: cubic-bezier(0.4, 0, 0.2, 1) ;
+  --color-1: #d5dadd ;
+  --color-2: #51d5c2 ;
+}
+
+/* Use relative units for margin */
+.body1 {
+  height: auto;
+  margin-left: 10%; /* Use relative unit 'px' or '%' or 'em' or 'rem' */
+  margin-right: 10%; /* Use relative unit 'px' or '%' or 'em' or 'rem' */
+}
+
+/* Use relative units for margin */
+h1 {
+  display: flex;
+  justify-content: flex-start;
+  margin: 3rem 0; /* Use relative unit 'px' or 'em' or 'rem' */
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5%;
+}
+
+.tab1 {
   width: 80%;
 }
 

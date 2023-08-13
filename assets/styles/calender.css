@@ -1,11 +1,9 @@
-
-
-  .calender {
-    width: 100%;
-    height: 652px;
-    background-color: rgb(173, 206, 244);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 200px;
-  }
+.calender {
+  width: 100%;
+  height: 100%; /* Use relative unit 'vh' */
+  background-color: rgb(173, 206, 244);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem; /* Use relative unit 'rem' */
+}

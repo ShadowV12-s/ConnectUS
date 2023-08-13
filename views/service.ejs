@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/styles/common.css">
   <link rel="stylesheet" type="text/css" href="/styles/header-footer.css">
   <link rel="stylesheet" type="text/css" href="/styles/service.css">
+  <script type="application/javascript" src="/script/header-footer.js"></script>
 </head>
 <body>
   <!-- Include the header -->
@@ -18,14 +19,14 @@
     <div class="container">
       <% services.forEach((service) => { %>
         <div class="serviceBox">
-          <div class="serviceImage">Image</div>
           <div class="serviceText">
-            <text> Name: <%= service.service_name %></text>
-            <text1>Description: <%= service.service_description %></text1>
-            <text2>Time/Date: <%= service.time_date %></text2> 
-            <text3> Hours: <%= service.amount_of_hours %></text3>
-            <text4>Address: <%= service.location %></text4> 
-            <text5>Contacts: <%= service.contacts %></text5> 
+            <text> Name: <%= service.serviceName %></text>
+            <text1>Email: <%= service.email %></text1>
+            <text2>Description: <%= service.description %></text2> 
+            <text3>Date: <%= service.date %></text3>
+            <text4>Time: <%= service.time %>-<%= service.time2 %></text4> 
+            <text6>Total hours: <%= service.hours %></text6> 
+            <text7>Address: <%= service.address %></text7> 
           </div>
         </div>
       <% }) %>

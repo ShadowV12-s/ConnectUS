@@ -1,1 +1,0 @@
---copy all the set up code fron the nnb to here.

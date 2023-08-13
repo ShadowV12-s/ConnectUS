@@ -13,10 +13,13 @@
   <%- include('./header') %>
   <main>
   <div class="banners"> 
-      <div class="profilePic"></div>
+      <!-- Render the user's profile picture with inline style -->
+    <div class="profilePic" style="background-image: url('<%= user.picture %>')"></div>
     </div>
     <div class="nameBar">
-  <div class="name">name</div>
+      <!-- Render the user's name -->
+    <div class="name"><%= user.name %></div>
+
   <div class="badges">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;&#9733; Badges</div>
 </div>
 <div class="discription">Personal description, kjsah djsha lkdh lsakhd lksa hdlkaj hslkdhsaljk dhsakj hdaskj hdkja hkjsa hdksa hdkjsah dlkjahs dkj</div>

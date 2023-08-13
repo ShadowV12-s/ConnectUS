@@ -1,87 +1,96 @@
- .box {
-    width: 100%;
-    height: 90px;
-    background-color: rgb(173, 206, 244);
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    font-size: 70px;
-  }
 
 
-  .all {
-    display: flex;
-    flex-direction: row;
-  }
-  
+/* Use relative units for height and font size */
+.box {
+  width: 100%;
+  height: 15vh; /* Use relative unit 'vh' */
+  background-color: rgb(173, 206, 244);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: 5.46875vh; /* Use relative unit 'vh' */
+}
 
-  .container {
-    background-color: rgb(255, 255, 255);
-    width: 95%;
-    height: auto;
-  }
+/* Use relative units for width and height */
+.all {
+  display: flex;
+  flex-direction: row;
+}
 
-  .serviceBox {
-    width: 100%;
-    height: auto;
-    background-color: rgba(226, 226, 226, 0.707);
-    border-bottom: 2px solid red;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
+/* Use relative units for background color and width */
+.container {
+  background-color: rgb(255, 255, 255);
+  width: 95%;
+  height: auto;
+}
 
-  .serviceImage {
-    width: 30vh;
-    height: 15vh;
-    border-color: solid seashell;
-    border-radius: 2px;
-    background-color: rgba(195, 186, 194, 0.707);
-    margin-left: 20px;
-  }
+/* Use relative units for height, background color, and border */
+.serviceBox {
+  width: 100%;
+  height: auto;
+  background-color: rgba(226, 226, 226, 0.707);
+  border-bottom: 0.125rem solid red; /* Use relative unit 'rem' */
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-top: 1.25rem; /* Use relative unit 'rem' */
+  padding-bottom: 1.25rem; /* Use relative unit 'rem' */
+}
 
-  .serviceText{
-    width: 100%;
-    height: auto;
-    border-color: solid seashell;
-    border-radius: 2px;
-    background-color: rgba(195, 186, 194, 0.707);
-    margin-left: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    line-height: 150%;
-    text-indent: 5px;
-  }
+/* Use relative units for width, height, border, and margin */
+.serviceImage {
+  width: 20vh; /* Use relative unit 'vh' */
+  height: 10vh; /* Use relative unit 'vh' */
+  border: 0.125rem solid seashell; /* Use relative unit 'rem' */
+  border-radius: 2px;
+  background-color: rgba(195, 186, 194, 0.707);
+  margin-left: 1.25rem; /* Use relative unit 'rem' */
+}
 
+/* Use relative units for width, height, border, and margin */
+.serviceText {
+  width: 100%;
+  height: auto;
+  border: 0.125rem solid seashell; /* Use relative unit 'rem' */
+  border-radius: 2px;
+  background-color: rgba(195, 186, 194, 0.707);
+  margin-left: 1.25rem; /* Use relative unit 'rem' */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 150%;
+  text-indent: 0.3125rem; /* Use relative unit 'rem' */
+}
 
-  .map{
-    width: 5%;
-    height: 100%;
-    background-color: rgb(67, 244, 13);
-    display: flex;
-    justify-content: left;
-   align-items: center;
-   margin-left: auto;
+/* Use relative units for width, height, background color, and margin */
+.map {
+  width: 5%; /* Use relative unit 'vw' */
+  height: auto;
+  background-color: rgb(67, 244, 13);
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-left: auto;
   right: 0;
-  }
+}
 
-.submit{
+/* Use relative units for margin */
+.submit {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px;
+  margin: 3.125rem; /* Use relative unit 'rem' */
 }
 
-  .submitButton{
-    width: auto;
-    height: auto;
-    transition: background-color 0.3s; 
-    list-style: none;
-  }
-  
-  .submitButton:hover{
-    background-color: rgb(227, 11, 11); 
-  }
+/* Use relative units for width, height, transition, and list-style */
+.submitButton {
+  width: auto;
+  height: auto;
+  transition: background-color 0.3s;
+  list-style: none;
+}
+
+/* Use relative units for background color */
+.submitButton:hover {
+  background-color: rgb(227, 11, 11);
+}

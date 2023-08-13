@@ -1,79 +1,99 @@
+/* Set the height of body and html to 100% of the viewport height */
+body, html {
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
+/* Use relative units for font size */
+body {
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+  font-size: 16px; /* Use relative unit 'px' or 'em' or 'rem' */
+}
 
+/* Use relative units for height and font size */
 .box {
   width: 100%;
-  height: 652px;
+  height: 50vh; /* Use relative unit 'vh' */
   background-color: rgb(173, 206, 244);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 200px;
+  font-size: 4rem; /* Use relative unit 'rem' */
 }
 
+/* Use relative units for background color and font size */
 p1 {
   background-color: rgb(178, 193, 197);
-  font-size: 30px;
+  font-size: 1.875rem; /* Use relative unit 'rem' */
   border-bottom: 2px solid black;
 }
 
+/* Use relative units for height */
 .box3 {
-  height: 30vb;
+  height: 30vh; /* Use relative unit 'vh' */
   background-color: rgb(178, 193, 197);
   display: flex;
   justify-content: center;
   align-items: center;
   justify-content: space-evenly;
-  gap: 40px;
+  gap: 2rem; /* Use relative unit 'rem' */
 }
 
+/* Use relative units for background color, width, and height */
 .statbox1, .statbox2, .statbox3 {
   background-color: rgb(255, 0, 0);
-  width: 200px;
-  height: 200px;
+  width: 12.5rem; /* Use relative unit 'rem' */
+  height: 12.5rem; /* Use relative unit 'rem' */
 }
 
+/* Use relative units for width, font size, and padding */
 .container {
   position: relative;
   flex-grow: 1;
 }
 
+/* Use relative units for width, font size, and padding */
 .box1 {
   width: 60%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   align-items: center;
-  font-size: 50px;
-  overflow-y: auto; 
+  font-size: 3.125rem; /* Use relative unit 'rem' */
+  overflow-y: auto;
 }
 
-
+/* Use relative units for margin, text align, font size, and padding */
 h1 {
-  margin: 20px 0;
+  margin: 1.25rem 0; /* Use relative unit 'rem' */
   text-align: center;
-  padding: 0 20px;
-  font-size: 24px;
+  padding: 0 1.25rem; /* Use relative unit 'rem' */
+  font-size: 1.5rem; /* Use relative unit 'rem' */
 }
 
+/* Use relative units for margin, text align, font size, and padding */
 p {
-  margin: 10px 0;
+  margin: 0.625rem 0; /* Use relative unit 'rem' */
   text-align: center;
-  padding: 0 20px;
+  padding: 0 1.25rem; /* Use relative unit 'rem' */
   line-height: 1.5;
 }
 
+/* Use relative units for width, height, background color, font size, and margin */
 .box2 {
   width: 40%;
-  height: 900px;
+  height: 80%;
   background-color: rgb(239, 0, 0);
   display: flex;
   justify-content: left;
   align-items: center;
-  font-size: 90px;
+  font-size: 7.5rem; /* Use relative unit 'rem' */
   margin-left: auto;
   position: absolute;
   top: 0;
   right: 0;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
-
