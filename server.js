@@ -5,6 +5,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const sqlite3 = require('sqlite3').verbose();
+require('dotenv').config();
 const port = 3000;
 
 // Set EJS as the templating engine
@@ -28,8 +29,8 @@ const db = new sqlite3.Database('./data/mydatabase.db', (error) => {
 app.use(express.urlencoded({ extended: true }));
 
 // Replace these with your own values from the Google Developer Console
-const GOOGLE_CLIENT_ID = '1016379132915-m4t3kmni1n3obr3kp1p2eo6ekkuvnaf0.apps.googleusercontent.com';
-const GOOGLE_CLIENT_SECRET = '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'; 
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const REDIRECT_URL = 'http://localhost:3000/auth/google/callback';
 
 // Configure the Google OAuth strategy
