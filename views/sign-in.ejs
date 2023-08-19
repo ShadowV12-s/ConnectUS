@@ -5,19 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/styles/common.css">
   <link rel="stylesheet" type="text/css" href="/styles/header-footer.css">
-  <link rel="stylesheet" type="text/css" href="/styles/signIn.css">
+  <link rel="stylesheet" type="text/css" href="/styles/sign-in.css">
 </head>
 <body>
   <%- include('./header') %>
-  <h1>Welcome to the <%= pageTitle %> page!</h1>
   <main>
-    <div class="login-box">
-      <h2>Login</h2>
-      <!-- Add a link for "Login with Google" -->
-      <a href="/auth/google">Login with Google</a>
-      <!-- Add a logout button -->
-      <button id="logoutButton">Logout</button>
-    </div>
+    <section class="login-section">
+      <h1>Welcome to the <%= pageTitle %> Page!</h1>
+      <div class="login-box">
+        <h2>Login</h2>
+        <a class="login-button" href="/auth/google">Login with Google</a>
+      </div>
+    </section>
   </main>
   <%- include('./footer') %>
   <script>

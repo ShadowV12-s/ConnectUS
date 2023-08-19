@@ -59,6 +59,47 @@ span {
   background-color: rgb(168, 168, 168); 
 }
 
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+  .nav__wrapper {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    display: none;
+  }
+
+  .nav__wrapper.active {
+    display: flex;
+  }
+
+  .nav__item {
+    margin: 0.5em 0;
+  }
+
+  .nav__item:last-child {
+    margin-bottom: 1em;
+  }
+
+  .nav__toggle {
+    display: block;
+  }
+
+  .nav__item:not(:last-child) {
+    display: none;
+  }
+
+  .nav__item.active {
+    display: block;
+  }
+}
+
+@media (min-width: 769px) {
+  .nav__toggle {
+    display: none;
+  }
+}
+
 /* Footer styles */
 small {
   display: flex;

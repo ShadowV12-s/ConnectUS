@@ -22,7 +22,6 @@ const db = new sqlite3.Database('./data/mydatabase.db', (err) => {
 });
 
 // Function to insert service data into the database
-// Function to insert service data into the database
 function insertService(serviceData) {
   return new Promise((resolve, reject) => {
     const {

@@ -5,22 +5,26 @@ const data = require('../data/data');
 const { insertService } = require('../data/data');
 
 // Define routes
+const user = {
+  id: '<%= user.id %>', 
+};
 
 // home page
 router.get('/', (req, res) => {
-  res.render('home', { pageTitle: 'Home' });
+  res.render('home', {pageTitle: 'Home', user: user });
 });
+
 
 // about page
 router.get('/about', (req, res) => {
-  res.render('about', { pageTitle: 'About' });
+  res.render('about', { pageTitle: 'About', user: user });
 });
 
 // service page
 router.get('/service', (req, res) => {
   data.getServices() // Corrected function call to getServices()
     .then((service_rows) => {
-      res.render('service', { pageTitle: 'Service', services: service_rows });
+      res.render('service', { pageTitle: 'Service', services: service_rows, user: user });
     })
     .catch((err) => {
       console.log(err);
@@ -30,7 +34,7 @@ router.get('/service', (req, res) => {
 
 // submit service page
 router.get('/submit-service', (req, res) => {
-  res.render('submit-service', { pageTitle: 'Submit Service' });
+  res.render('submit-service', { pageTitle: 'Submit Service', user: user });
 });
 
 // Route to handle form submissions
@@ -72,27 +76,26 @@ router.post('/submitService', async (req, res) => {
 
 // calender page
 router.get('/calender', (req, res) => {
-  res.render('calender', { pageTitle: 'Calender' });
+  res.render('calender', { pageTitle: 'Calender', user: user });
 });
 
 // profile page
 router.get('/profile', (req, res) => {
-  // Access the authenticated user's information via req.user
-  // This will contain the profile information returned from Google OAuth
   const user = req.user;
-  
-  // Debugging: Output the entire user object to see its structure
-  console.log(user);
 
-  res.render('profile', { pageTitle: 'Profile', user });
+  if (user === undefined) {
+    res.redirect("/sign-in");
+  } else {
+    // Pass the user object to the template context
+    res.render('profile', { pageTitle: 'Profile', user: user });
+  }
 });
 
 
 // sign-in page
 router.get('/sign-in', (req, res) => {
-  res.render('sign-in', { pageTitle: 'Sign-in', userAccessToken: req.session.access_token });
+  res.render('sign-in', { pageTitle: 'Sign-in', userAccessToken: req.session.access_token, user: user });
 });
-
 
 
 // Define the Google OAuth routes

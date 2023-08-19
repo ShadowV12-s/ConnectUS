@@ -1,15 +1,27 @@
-<header class="site-header">
-  <div>
-    <nav class="nav">
-      <ul class="nav__wrapper">
-        <li class="nav__item"><a href="/">Home</a></li>
-        <li class="nav__item"><a href="/service">Services</a></li>
-        <li class="nav__item"><a href="/calender">Calender</a></li>
-        <li class="brand"><a href="/"><span>C</span>onnectUS</a></li>
-        <li class="nav__item"><a href="/profile"> My Profile</a></li>
-        <li class="nav__item"><a href="/about">About</a></li>
-        <li class="nav__item"><a href="/sign-in">SignIn</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+  <header class="site-header">
+    <div>
+      <nav class="nav">
+        <button class="nav__toggle" onclick="toggleNav()">☰</button>
+        <ul class="nav__wrapper">
+          <li class="nav__item"><a href="/">Home</a></li>
+          <li class="nav__item"><a href="/service">Services</a></li>
+          <li class="nav__item"><a href="/calender">Calender</a></li>
+          <li class="brand"><a href="/"><span>C</span>onnectUS</a></li>
+          <li class="nav__item"><a href="/profile"> My Profile</a></li>
+          <li class="nav__item"><a href="/about">About</a></li>
+          <li class="nav__item" id="authButton"><a href="/sign-in">SignIn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <script>
+    function toggleNav() {
+      var navWrapper = document.querySelector('.nav__wrapper');
+      navWrapper.classList.toggle('active');
+      var navItems = document.querySelectorAll('.nav__item');
+      navItems.forEach(function(item) {
+        item.classList.toggle('active');
+      });
+    }
+  </script>
