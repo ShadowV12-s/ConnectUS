@@ -6,7 +6,23 @@ CREATE TABLE IF NOT EXISTS users (
       password TEXT
 );
 
+
+CREATE TABLE IF NOT EXISTS services (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        serviceName TEXT,
+        email TEXT,
+        description TEXT,
+        date TEXT,
+        time TEXT,
+        time2 TEXT,
+        hours INTEGER,
+        address TEXT
+);
+
 CREATE TABLE IF NOT EXISTS registration (
-    user_id INTEGER FOREIGN KEY REFERENCES users(id),
-    service_id INTEGER FOREIGN KEY REFERENCES services(id),
-)
+    user_id INTEGER NOT NULL,
+    service_id INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (service_id) REFERENCES services(id)
+);
+

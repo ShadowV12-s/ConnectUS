@@ -112,17 +112,22 @@ if (document.querySelector(".invalid") == null) {
     }
 
     if (addressValue === '') {
-        setError(address, "Please provide an address");
-    } else {
-        // Check if the address is a valid address using the Google Maps Geocoding API
-        const isValid = isValidAddress(addressValue);
-
-        if (!isValid) {
-            setError(address, "Invalid address");
-        } else {
-            setSuccess(address);
-        }
-    }
+      setError(address, "Please provide an address");
+  } else {
+      // Check if the address is a valid address using the Google Maps Geocoding API
+      isValidAddress(addressValue)
+          .then(isValid => {
+              if (!isValid) {
+                  setError(address, "Invalid address");
+              } else {
+                  setSuccess(address);
+              }
+          })
+          .catch(error => {
+              console.error('Error validating address:', error);
+              setError(address, "An error occurred while validating the address");
+          });
+  }
 
 }
 
@@ -150,22 +155,21 @@ function isFutureDate(date) {
 
 // Function to validate the address (address) using Google Maps Geocoding API
 async function isValidAddress(address) {
-  const apiKey = 'YOUR_API_KEY'; // Replace with your actual Google Maps API key
+  const apiKey = 'AIzaSyBSB1hj5zOoOfI6Kcw8xDjSA0LcvhDcJQE'; 
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
-
   try {
-      const response = await fetch(url);
-      const data = await response.json();
+    const response = await fetch(url);
+    const data = await response.json();
 
-      if (data.status === 'OK' && data.results.length > 0) {
-          // If the API returns any results, it means the address is valid
-          return true;
-      } else {
-          return false;
-      }
-  } catch (error) {
-      alert('Error validating address:', error);
-      return false;
-  }
+    if (data.status === 'OK' && data.results.length > 0) {
+        // If the API returns any results, it means the address is valid
+        return true;
+    } else {
+        console.log('Geocoding API response:', data);
+        return false;
+    }
+} catch (error) {
+    throw error;
+}
 }
 
