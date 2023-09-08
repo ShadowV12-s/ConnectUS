@@ -1,11 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const data = require('../data/data'); 
-const { insertService } = require('../data/data');
-// Import the user and service databases
-const userDB = require('../data/user-database'); // Replace 'userDatabase' with the actual user database module
-const serviceDB = require('../data/data'); // Replace 'serviceDatabase' with the actual service database module
+const data = require('../data/data');
+const userDB = require('../data/user-database'); // Replace with your user database module
+const serviceDB = require('../data/data'); // Replace with your service database module
+const sqlite3 = require('sqlite3').verbose(); // Import the sqlite3 module
+
+// Establish a connection to your SQLite database
+const db = new sqlite3.Database('data/mydatabase.db'); 
+const Registration = require('../data/registration');
+
+const registration = new Registration(db);
 
 // Define routes
 const user = {
@@ -47,6 +52,7 @@ router.get('/service', (req, res) => {
   // Retrieve user information from the request object or set it to null if not available
   const user = req.user || null;
 
+
   // Call the getServices function from the 'serviceDB' module
   serviceDB.getServices()
     .then((service_rows) => {
@@ -68,7 +74,7 @@ router.get('/service', (req, res) => {
 
   // Call the getServices function from the 'serviceDB' module to fetch available services
   serviceDB.getServices()
-    .then((service_rows) => {
+    .then((service_rows) => { 
       // Render the 'service' template with the retrieved data and user information
       res.render('service', { pageTitle: 'Service', services: service_rows, user: user });
     })
@@ -79,33 +85,6 @@ router.get('/service', (req, res) => {
     });
 });
 
-// Add a new route handler to handle user sign-ups for services
-router.post('/service/sign-up', (req, res) => {
-  // Retrieve the service ID from the request body
-  const { serviceId } = req.body;
-
-  // Check if the user is authenticated
-  if (!req.isAuthenticated()) {
-    // Handle the case where the user is not authenticated
-    return res.status(401).json({ error: 'User is not authenticated' });
-  }
-
-  // Get the authenticated user's ID
-  const userId = req.user.id;
-
-  // Insert a record into the user_service table to represent the sign-up
-  // You'll need to modify this part based on your database schema
-  // Here, we assume you have a user_service table with columns (user_id, service_id)
-  // Adjust the SQL query and database handling accordingly
-  serviceDB.insertUserService(userId, serviceId)
-    .then(() => {
-      res.status(200).json({ message: 'Successfully signed up for the service' });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: 'Failed to sign up for the service' });
-    });
-});
 
 
 
@@ -116,8 +95,7 @@ router.get('/submit-service', (req, res) => {
 });
 
 // Route to handle form submissions
-router.post('/submitService', async (req, res) => {
-  // Extract form data from the request body
+router.post('/submitService', (req, res) => {
   const {
     serviceName,
     email,
@@ -129,27 +107,35 @@ router.post('/submitService', async (req, res) => {
     address,
   } = req.body;
 
-  try {
-    // Call the insertService function to insert the data into the database
-    const insertedServiceId = await insertService({
-      serviceName,
-      email,
-      description,
-      date,
-      time,
-      time2,
-      hours,
-      address,
-    });
+  // Insert the form data into your database
+  const stmt = db.prepare('INSERT INTO your_table_name (serviceName, email, description, date, time, time2, hours, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+  stmt.run(serviceName, email, description, date, time, time2, hours, address, function(err) {
+    if (err) {
+      console.error('Error inserting data:', err);
+      res.status(500).send('An error occurred while processing the form data.');
+    } else {
+      console.log(`Row inserted with ID ${this.lastID}`);
+      res.redirect('/service');
+    }
+    stmt.finalize();
+  });
+});
 
-    // Redirect the user back to the home page after the form submission
-    res.redirect('/service');
+// POST route to create a registration
+router.post('/create-registration', async (req, res) => {
+  try {
+    const { serviceId } = req.body;
+    const userId = req.user.id;
+
+    const result = await registration.createRegistration(serviceId, userId);
+
+    res.status(201).json({ message: 'Registration created successfully', registration: result });
   } catch (error) {
-    // Handle any errors that occurred during the insertion process
-    console.error('Error inserting data:', error);
-    res.status(500).send('An error occurred while processing the form data.');
+    console.error('Error creating registration:', error);
+    res.status(500).json({ message: 'Failed to create registration' });
   }
 });
+
 
 
 // calender page
@@ -209,46 +195,6 @@ router.get('/privacy-policy', (req, res) => {
   res.render('privacy-policy', { pageTitle: 'privacy-policy', userAccessToken: req.session.access_token, user: user });
 });
 
-
-// Route for sign-up
-router.post('/registration/sign-up', (req, res) => {
-  const { serviceId } = req.body;
-  const userId = req.user.id; // Assuming you have middleware to populate req.user
-
-  // Insert a new registration record into the service database
-  serviceDB.run(
-    'INSERT INTO registration (service_id, user_id, action) VALUES (?, ?, ?)',
-    [serviceId, userId, 'sign-up'],
-    (err) => {
-      if (err) {
-        console.error(err.message);
-        return res.status(500).json({ error: 'An error occurred' });
-      }
-
-      return res.status(201).json({ message: 'Registration successful' });
-    }
-  );
-});
-
-// Route for cancel
-router.post('/registration/cancel', (req, res) => {
-  const { serviceId } = req.body;
-  const userId = req.user.id; // Assuming you have middleware to populate req.user
-
-  // Delete the registration record from the service database
-  serviceDB.run(
-    'DELETE FROM registration WHERE service_id = ? AND user_id = ? AND action = ?',
-    [serviceId, userId, 'sign-up'],
-    (err) => {
-      if (err) {
-        console.error(err.message);
-        return res.status(500).json({ error: 'An error occurred' });
-      }
-
-      return res.status(200).json({ message: 'Registration canceled' });
-    }
-  );
-});
 
 
 // Add more routes here if needed

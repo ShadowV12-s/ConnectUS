@@ -17,28 +17,33 @@
   <!-- The service area --> 
   <div class="all">
     <div class="container">
-      <% services.forEach((service) => { %>
-        <div class="serviceBox">
-          <div class="serviceText">
-            <text> Name: <%= service.serviceName %></text>
-            <text1>Email: <%= service.email %></text1>
-            <text2>Description: <%= service.description %></text2> 
-            <text3>Date: <%= service.date %></text3>
-            <text4>Time: <%= service.time %>-<%= service.time2 %></text4> 
-            <text6>Total hours: <%= service.hours %></text6> 
-            <text7>Address: <%= service.address %></text7> 
-            <button class="sign-up-button" data-service-id="<%= service.id %>">Sign Up</button>
+      <% if (services && services.length > 0) { %>
+        <% services.forEach((service) => { %>
+          <div class="serviceBox">
+            <div class="serviceText">
+              <text> Name: <%= service.serviceName %></text>
+              <text1>Email: <%= service.email %></text1>
+              <text2>Description: <%= service.description %></text2> 
+              <text3>Date: <%= service.date %></text3>
+              <text4>Time: <%= service.time %>-<%= service.time2 %></text4> 
+              <text6>Total hours: <%= service.hours %></text6> 
+              <text7>Address: <%= service.address %></text7> 
+              <% if (service && service.id && user && user.id) { %>
+                <button class="sign-up-button" data-service-id="<%= service.id %>" data-user-id="<%= user.id %>">Sign Up</button>
+              <% } else { %>
+                <!-- Handle the case where service.id or user.id is not available -->
+                <p>Service or user information not available.</p>
+              <% } %>
+            </div>
           </div>
-        </div>
         <% }) %>
-      </div>
-      <div class="map">map, when clicked it slides to become the entire page and makes the services 10%</div>
+      <% } else { %>
+        <!-- Handle the case where services are not available -->
+        <p>No services available.</p>
+      <% } %>
     </div>
-  <div id="confirmation-dialog" class="hidden">
-    <p>Are you sure you want to sign up for this service?</p>
-    <button id="confirm-button">Confirm</button>
-    <button id="cancel-button">Cancel</button>
   </div>
+  <div class="map">map, when clicked it slides to become the entire page and makes the services 10%</div>
 </main>
 
 <!-- The form for inputting data -->
@@ -49,72 +54,48 @@
 <!-- Include the footer -->
 <%- include('./footer') %>
 
-<!-- ... Your existing HTML code ... -->
+<script type="application/javascript">
+  const serviceId = button.getAttribute('data-service-id');
+  const userId = button.getAttribute('data-user-id');
+  
+  function signUp(serviceId, userId) {
+    const data = {
+      serviceId: serviceId,
+      userId: userId,
+    };
 
-<script>
-  // Function to show the confirmation dialog
-  function showConfirmationDialog(serviceId) {
-    const confirmationDialog = document.getElementById('confirmation-dialog');
-    const overlay = document.getElementById('overlay');
-    confirmationDialog.style.display = 'block';
-    overlay.style.display = 'block';
-
-    // Set a data attribute to store the service ID
-    confirmationDialog.setAttribute('data-service-id', serviceId);
+    fetch('/create-registration', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log('Registration successful');
+        } else {
+          console.error('Registration failed');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   }
 
-  // Function to hide the confirmation dialog
-  function hideConfirmationDialog() {
-    const confirmationDialog = document.getElementById('confirmation-dialog');
-    const overlay = document.getElementById('overlay');
-    confirmationDialog.style.display = 'none';
-    overlay.style.display = 'none';
-  }
-
-  // Function to check if userId is valid and redirect to sign-in if not
-  function checkUserIdAndProceed(serviceId) {
-    const userId = getUserId(); // Replace with your method to fetch the user's ID
-
-    if (userId) {
-      // User is logged in, show the confirmation dialog
-      showConfirmationDialog(serviceId);
-    } else {
-      // User is not logged in, redirect to the sign-in page
-      window.location.href = '/sign-in';
-    }
-  }
-
-  // Attach click event handlers to the "Sign Up" buttons
-  const signUpButtons = document.querySelectorAll('.sign-up-button');
-  signUpButtons.forEach((button) => {
-    button.addEventListener('click', (event) => {
-      const serviceId = event.currentTarget.getAttribute('data-service-id');
-      checkUserIdAndProceed(serviceId);
+  document.addEventListener('DOMContentLoaded', function () {
+    const signUpButtons = document.querySelectorAll('.sign-up-button');
+    signUpButtons.forEach(button => {
+      
+      button.addEventListener('click', function () {
+        const serviceId = button.getAttribute('data-service-id');
+        const userId = button.getAttribute('data-user-id');
+        console.log(serviceId, userId);
+        signUp(serviceId, userId);
+      });
     });
   });
-
-  // Attach click event handlers to the "Confirm" and "Cancel" buttons
-  const confirmButton = document.getElementById('confirm-button');
-  const cancelButton = document.getElementById('cancel-button');
-  confirmButton.addEventListener('click', () => {
-    const serviceId = document.getElementById('confirmation-dialog').getAttribute('data-service-id');
-    // Perform your sign-up logic here
-    // You can use the serviceId to identify which service was selected
-    // After sign-up, you can hide the dialog by calling hideConfirmationDialog()
-    hideConfirmationDialog();
-  });
-  cancelButton.addEventListener('click', hideConfirmationDialog);
-
-  // Replace this function with your method to fetch the user's ID
-  function getUserId() {
-    // Implement your logic to retrieve the user's ID here
-    // For example, you might use cookies, session storage, or an API call
-    // Return the user's ID if they are logged in, or null/undefined if not
-    return null; // Change this to the actual user ID or null/undefined
-  }
 </script>
-
-
 
 </body>
 </html>
