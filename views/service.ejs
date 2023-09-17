@@ -33,7 +33,7 @@
               <% } else { %>
                 <!-- Handle the case where service.id or user.id is not available -->
                 <p>Service or user information not available.</p>
-              <% } %>
+              <% } %>              
             </div>
           </div>
         <% }) %>
@@ -55,46 +55,31 @@
 <%- include('./footer') %>
 
 <script type="application/javascript">
-  const serviceId = button.getAttribute('data-service-id');
-  const userId = button.getAttribute('data-user-id');
-  
-  function signUp(serviceId, userId) {
-    const data = {
-      serviceId: serviceId,
-      userId: userId,
-    };
+ // Client-side JavaScript
+ document.addEventListener('DOMContentLoaded', function() {
+  const buttons = document.querySelectorAll('.sign-up-button');
 
-    fetch('/create-registration', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then(response => {
-        if (response.ok) {
-          console.log('Registration successful');
-        } else {
-          console.error('Registration failed');
-        }
+  buttons.forEach(button => {
+    button.addEventListener('click', function() {
+      const serviceID = this.dataset.serviceId;
+      const userID = this.dataset.userId;
+
+      fetch('/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ serviceID, userID }),
       })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    const signUpButtons = document.querySelectorAll('.sign-up-button');
-    signUpButtons.forEach(button => {
-      
-      button.addEventListener('click', function () {
-        const serviceId = button.getAttribute('data-service-id');
-        const userId = button.getAttribute('data-user-id');
-        console.log(serviceId, userId);
-        signUp(serviceId, userId);
-      });
+      .then(response => response.json())
+      .then(data => {
+        // Handle response from server (if needed)
+      })
+      .catch(error => console.error('Error:', error));
     });
   });
+});
+
 </script>
 
 </body>

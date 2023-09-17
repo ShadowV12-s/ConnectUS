@@ -7,11 +7,14 @@ class Registration {
 
   createRegistration(serviceId, userId) {
     return new Promise((resolve, reject) => {
-      this.db.run('INSERT INTO registration (service_id, user_id) VALUES (?, ?)', [serviceId, userId], function(err) {
+      const stmt = this.db.prepare('INSERT INTO registration (service_id, user_id) VALUES (?, ?)');
+      stmt.run(serviceId, userId, function(err) {
+        stmt.finalize(); // finalize the statement after running to release resources
+
         if (err) {
           reject(err);
         } else {
-          resolve({ message: 'Registration successful' });
+          resolve({ message: 'Registration successful', registrationId: this.lastID });
         }
       });
     });

@@ -7,7 +7,7 @@ const serviceDB = require('../data/data'); // Replace with your service database
 const sqlite3 = require('sqlite3').verbose(); // Import the sqlite3 module
 
 // Establish a connection to your SQLite database
-const db = new sqlite3.Database('data/mydatabase.db'); 
+const db = new sqlite3.Database('data/mydatabase.db');
 const Registration = require('../data/registration');
 
 const registration = new Registration(db);
@@ -17,7 +17,7 @@ const user = {
   id: '<%= user.id %>', 
 };
 
-
+router.use(express.json());
 
 // Google OAuth callback
 router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
@@ -47,25 +47,6 @@ router.get('/about', (req, res) => {
   res.render('about', { pageTitle: 'About', user: user });
 });
 
-// service page
-router.get('/service', (req, res) => {
-  // Retrieve user information from the request object or set it to null if not available
-  const user = req.user || null;
-
-
-  // Call the getServices function from the 'serviceDB' module
-  serviceDB.getServices()
-    .then((service_rows) => {
-      // Render the 'service' template with the retrieved data and user information
-      res.render('service', { pageTitle: 'Service', services: service_rows, user: user });
-    })
-    .catch((err) => {
-      // Handle errors and send an internal server error response
-      console.error(err);
-      res.status(500).send('Internal Server Error');
-    });
-});
-// Assuming you have the necessary imports and middleware set up
 
 // Modify your /service route
 router.get('/service', (req, res) => {
@@ -83,10 +64,49 @@ router.get('/service', (req, res) => {
       console.error(err);
       res.status(500).send('Internal Server Error');
     });
+
+    
 });
 
 
 
+
+router.post('/signup', (req, res) => {
+  const { serviceID, userID } = req.body;
+
+  // Check if the user has already signed up for this service
+  const stmt = db.prepare('SELECT * FROM registration WHERE user_id = ? AND service_id = ?');
+  stmt.get(userID, serviceID, (err, row) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    if (row) {
+      // The user has already signed up for this service
+      res.status(400).send('User has already signed up for this service');
+      console.log("Already registrated")
+    } else {
+      // Perform database operations to sign up the user
+      const insertStmt = db.prepare('INSERT INTO registration (user_id, service_id) VALUES (?, ?)');
+      insertStmt.run(userID, serviceID);
+      insertStmt.finalize();
+      console.log(serviceID);
+      console.log(userID);
+
+      res.send({ success: true });
+    }
+  });
+  // // Delete the row from the registration table
+  // const stmt1 = db.prepare('DELETE FROM registration WHERE user_id = ? AND service_id = ?');
+  // stmt1.run(userID, serviceID, (err) => {
+  //   if (err) {
+  //     console.error(err);
+  //     res.status(500).send('Internal Server Error');
+  //     return;
+  //   }
+});
 
 // submit service page
 router.get('/submit-service', (req, res) => {
@@ -120,22 +140,6 @@ router.post('/submitService', (req, res) => {
     stmt.finalize();
   });
 });
-
-// POST route to create a registration
-router.post('/create-registration', async (req, res) => {
-  try {
-    const { serviceId } = req.body;
-    const userId = req.user.id;
-
-    const result = await registration.createRegistration(serviceId, userId);
-
-    res.status(201).json({ message: 'Registration created successfully', registration: result });
-  } catch (error) {
-    console.error('Error creating registration:', error);
-    res.status(500).json({ message: 'Failed to create registration' });
-  }
-});
-
 
 
 // calender page
