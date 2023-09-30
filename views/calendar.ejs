@@ -1,0 +1,80 @@
+<!-- views/calendar.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calendar - My Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/styles/common.css">
+  <link rel="stylesheet" type="text/css" href="/styles/header-footer.css">
+  <link rel="stylesheet" type="text/css" href="/styles/calendar.css"> <!-- Include CSS for the calendar -->
+</head>
+<body>
+  <!-- Include the header -->
+  <%- include('./header') %>
+
+  <iframe src="https://embed.styledcalendar.com/#O93w0M2W42Ivsd4CHTOt" title="Styled Calendar" class="styled-calendar-container" style="width: 100%; border: none;" data-cy="calendar-embed-iframe"></iframe>
+  <script async type="module" src="https://embed.styledcalendar.com/assets/parent-window.js"></script>
+  <!-- <div class="calendar">
+    <h2 id="currentMonthYear"></h2> 
+    <button id="prevMonth">Previous Month</button>
+    <button id="nextMonth">Next Month</button>
+    <div class="days-grid" id="daysGrid"></div> 
+  </div> -->
+
+  <!-- Include the footer -->
+  <%- include('./footer') %>
+
+  <script >
+    // public/scripts/calendar.js
+
+document.addEventListener('DOMContentLoaded', function() {
+  const currentDate = new Date();
+  let currentYear = currentDate.getFullYear();
+  let currentMonth = currentDate.getMonth();
+  const currentMonthYearElement = document.getElementById('currentMonthYear');
+  const daysGridElement = document.getElementById('daysGrid');
+  
+  function updateCalendar(year, month) {
+    const firstDayOfMonth = new Date(year, month, 1);
+    const lastDayOfMonth = new Date(year, month + 1, 0);
+  
+    // Clear previous content
+    currentMonthYearElement.innerHTML = `${firstDayOfMonth.toLocaleString('default', { month: 'long' })} ${year}`;
+    daysGridElement.innerHTML = '';
+  
+    // Loop through days of the month
+    for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
+      const dayElement = document.createElement('div');
+      dayElement.classList.add('day');
+      dayElement.textContent = day;
+      daysGridElement.appendChild(dayElement);
+    }
+  }
+  
+  function prevMonth() {
+    currentMonth -= 1;
+    if (currentMonth < 0) {
+      currentMonth = 11;
+      currentYear -= 1;
+    }
+    updateCalendar(currentYear, currentMonth);
+  }
+  
+  function nextMonth() {
+    currentMonth += 1;
+    if (currentMonth > 11) {
+      currentMonth = 0;
+      currentYear += 1;
+    }
+    updateCalendar(currentYear, currentMonth);
+  }
+  
+  document.getElementById('prevMonth').addEventListener('click', prevMonth);
+  document.getElementById('nextMonth').addEventListener('click', nextMonth);
+  
+  // Initialize calendar
+  updateCalendar(currentYear, currentMonth);
+});
+</script> <!-- Add a new JavaScript file for the calendar -->
+</body>
+</html>

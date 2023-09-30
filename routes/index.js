@@ -82,37 +82,159 @@ router.post('/signup', (req, res) => {
       res.status(500).send('Internal Server Error');
       return;
     }
-
     if (row) {
       // The user has already signed up for this service
-      res.status(400).send('User has already signed up for this service');
-      console.log("Already registrated")
+      res.status(400).json({ error: 'User has already signed up for this service' });
+      console.log("Already registered");
     } else {
       // Perform database operations to sign up the user
       const insertStmt = db.prepare('INSERT INTO registration (user_id, service_id) VALUES (?, ?)');
       insertStmt.run(userID, serviceID);
       insertStmt.finalize();
+            
       console.log(serviceID);
       console.log(userID);
-
-      res.send({ success: true });
+      res.json({ success: true });
     }
   });
-  // // Delete the row from the registration table
-  // const stmt1 = db.prepare('DELETE FROM registration WHERE user_id = ? AND service_id = ?');
-  // stmt1.run(userID, serviceID, (err) => {
-  //   if (err) {
-  //     console.error(err);
-  //     res.status(500).send('Internal Server Error');
-  //     return;
-  //   }
 });
 
+router.post('/cancel-registration', (req, res) => {
+  const { serviceID, userID } = req.body;
+
+  const stmt = db.prepare('SELECT * FROM registration WHERE user_id = ? AND service_id = ?');
+    stmt.get(userID, serviceID, (err, row) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+        return;
+      }
+      if (row) {
+        const stmt1 = db.prepare('DELETE FROM registration WHERE user_id = ? AND service_id = ?');
+        stmt1.run(userID, serviceID, (err) => {
+          if (err) {
+            console.error(err);
+            res.status(500).json({ success: false, error: 'Internal Server Error' });
+            return;
+          }
+          res.json({ success: true });
+        });
+      } else {
+        res.json({ success: false });
+        console.log("not signed up");
+      }
+    });
+
+});
+
+
+
 // submit service page
-router.get('/submit-service', (req, res) => {
+router.get('/submit-service', checkPermission3, (req, res) => {
   const user = req.user ? req.user : null;
   res.render('submit-service', { pageTitle: 'Submit Service', user: user });
 });
+
+// Define a middleware function to check user's permission
+function checkPermission(req, res, next) {
+  const user = req.user;
+
+  if (user && user.permission === 1) {
+    next(); // User has permission 1, continue to the next middleware
+  } else {
+    res.status(403).send("You do not have permission to access this page."); // User does not have permission, send a forbidden status
+  }
+}
+
+// Apply the middleware to the '/control' route
+router.get('/control', checkPermission, (req, res) => {
+  const user = req.user ? req.user : null;
+  const sql = 'SELECT * FROM users';
+
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      throw err;
+    }
+
+    res.render('control', { pageTitle: 'control', user: user, users: rows });
+  });
+});
+
+router.post('/updatePermission', (req, res) => {
+  const userId = req.body.userId;
+  const newPermission = req.body.newPermission;
+
+  const sql = 'UPDATE users SET permission = ? WHERE id = ?';
+
+  db.run(sql, [newPermission, userId], (err) => {
+    if (err) {
+      throw err;
+    }
+
+    // Redirect back to the control page
+    res.redirect('/control');
+  });
+});
+
+router.post('/updatePermission2', (req, res) => {
+  const userId = req.body.userId;
+  const newPermission = req.body.newPermission;
+
+  const sql = 'UPDATE users SET permission = ? WHERE id = ?';
+
+  db.run(sql, [newPermission, userId], (err) => {
+    if (err) {
+      throw err;
+    }
+
+    // Redirect back to the control page
+    res.redirect('/control2');
+  });
+});
+
+
+// Define a middleware function to check user's permission
+function checkPermission2(req, res, next) {
+  const user = req.user;
+
+  if (user && (user.permission === 1 || user.permission === 2)) {
+    next(); // User has permission 1 or 2, continue to the next middleware
+  } else {
+    res.status(403).send("You do not have permission to access this page."); // User does not have permission, send a forbidden status
+  }
+}
+
+// Apply the middleware to the '/control2' route
+router.get('/control2', checkPermission2, (req, res) => {
+  const user = req.user ? req.user : null;
+  const sql = 'SELECT * FROM users';
+
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      throw err;
+    }
+
+    res.render('control2', { pageTitle: 'control2', user: user, users: rows });
+  });
+});
+
+// Define a middleware function to check user's permission
+function checkPermission3(req, res, next) {
+  const user = req.user;
+
+  if (user && (user.permission === 1 || user.permission === 2 || user.permission === 3)) {
+    next(); // User has permission 1 or 2, continue to the next middleware
+  } else {
+    res.status(403).send("You do not have permission to access this page."); // User does not have permission, send a forbidden status
+  }
+}
+
+// Apply the middleware to the '/control2' route
+router.get('/control3', checkPermission3, (req, res) => {
+  const user = req.user ? req.user : null;
+  res.render('control3', { pageTitle: 'control3', user: user });
+});
+
 
 // Route to handle form submissions
 router.post('/submitService', (req, res) => {
@@ -128,7 +250,7 @@ router.post('/submitService', (req, res) => {
   } = req.body;
 
   // Insert the form data into your database
-  const stmt = db.prepare('INSERT INTO your_table_name (serviceName, email, description, date, time, time2, hours, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+  const stmt = db.prepare('INSERT INTO services (serviceName, email, description, date, time, time2, hours, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
   stmt.run(serviceName, email, description, date, time, time2, hours, address, function(err) {
     if (err) {
       console.error('Error inserting data:', err);
@@ -143,22 +265,65 @@ router.post('/submitService', (req, res) => {
 
 
 // calender page
-router.get('/calender', (req, res) => {
+router.get('/calendar', (req, res) => {
   const user = req.user ? req.user : null;
-  res.render('calender', { pageTitle: 'Calender', user: user });
+
+  serviceDB.getServices()
+    .then((service_rows) => {
+      const eventsByDate = {};
+
+      service_rows.forEach(event => {
+        const date = event.date; // Assuming date is in a format like 'YYYY-MM-DD'
+        if (!eventsByDate[date]) {
+          eventsByDate[date] = [];
+        }
+        eventsByDate[date].push(event);
+      });
+
+      res.render('calendar', { pageTitle: 'Calendar', eventsByDate, user: user });
+    })
+    .catch((err) => {
+      // Handle errors and send an internal server error response
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    });
 });
 
+
+
+
+
 // profile page
+
 router.get('/profile', (req, res) => {
   const user = req.user;
 
   if (user === undefined) {
     res.redirect("/sign-in");
   } else {
-    // Pass the user object to the template context
-    res.render('profile', { pageTitle: 'Profile', user: user });
+    const stmt = db.prepare('SELECT * FROM registration JOIN services ON registration.service_id = services.id WHERE registration.user_id = ?');
+    
+    stmt.all(user.id, (err, services) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+        return;
+      }
+
+      stmt.finalize(); // Move this inside the callback
+
+      // Pass the user object and services to the template context
+      res.render('profile', { pageTitle: 'Profile', user: user, services: services });
+      
+   
+    });
   }
 });
+
+
+
+
+
 
 
 // sign-in page

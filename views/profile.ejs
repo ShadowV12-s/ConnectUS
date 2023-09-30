@@ -32,28 +32,60 @@
 </div>
 
 <div class="history">
-  <div class="history_title">History</div>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
-  <p>TEXT</p>
+  <div class="history_title">My registered services</div>
+  <% if (services && services.length > 0) { %>
+    <% services.forEach((service) => { %>
+      <div class="serviceBox">
+        <div class="serviceText">
+          <text> Name: <%= service.serviceName %> </text>    
+          <text> Date: <%= service.date %> From <%= service.time %> to <%= service.time2 %></text>    
+          <button class="cancel-button" data-service-id="<%= service.id %>" data-user-id="<%= user.id %>">Cancel</button>    
+        </div>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <!-- Handle the case where services are not available -->
+    <p>No services available.</p>
+  <% } %>
 </div>
 
 </main>
 <!-- Include the footer -->
 <%- include('./footer') %>
+
+<script type="application/javascript">
+      document.addEventListener('click', async function(event) {
+        if (event.target.classList.contains('cancel-button')) {
+          const serviceID = event.target.dataset.serviceId;
+          const userID = event.target.dataset.userId;
+  
+          try {
+            const response = await fetch('/cancel-registration', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ serviceID, userID })
+            });
+  
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+  
+            const data = await response.json();
+  
+            if (data.success) {
+              // Handle successful cancellation (e.g., show a message to the user)
+              alert('Registration canceled successfully!');
+              location.reload(); // This will refresh the page
+            }
+          } catch (error) {
+            console.error('Error canceling registration:', error);
+            // Handle error (e.g., show a message to the user)
+          }
+        }
+      });    
+  </script>
 </body>
 </html>
 

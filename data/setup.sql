@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS users (
       picture TEXT
 );
 
-
 CREATE TABLE IF NOT EXISTS services (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         serviceName TEXT,

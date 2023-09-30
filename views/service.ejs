@@ -30,6 +30,7 @@
               <text7>Address: <%= service.address %></text7> 
               <% if (service && service.id && user && user.id) { %>
                 <button class="sign-up-button" data-service-id="<%= service.id %>" data-user-id="<%= user.id %>">Sign Up</button>
+                <button class="cancel-button" data-service-id="<%= service.id %>" data-user-id="<%= user.id %>">Cancel</button>
               <% } else { %>
                 <!-- Handle the case where service.id or user.id is not available -->
                 <p>Service or user information not available.</p>
@@ -41,22 +42,16 @@
         <!-- Handle the case where services are not available -->
         <p>No services available.</p>
       <% } %>
+      
     </div>
   </div>
   <div class="map">map, when clicked it slides to become the entire page and makes the services 10%</div>
 </main>
-
-<!-- The form for inputting data -->
-<div class="submit">
-  <li class="submitButton"><a href="/submit-service">Submit services</a></li>
-</div>
-
 <!-- Include the footer -->
 <%- include('./footer') %>
 
 <script type="application/javascript">
- // Client-side JavaScript
- document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
   const buttons = document.querySelectorAll('.sign-up-button');
 
   buttons.forEach(button => {
@@ -68,19 +63,63 @@
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-        },
+        }, 
         body: JSON.stringify({ serviceID, userID }),
       })
       .then(response => response.json())
       .then(data => {
-        // Handle response from server (if needed)
+        if (data.error) {
+          // User is already registered, show alert
+          alert(data.error);
+        } else {
+          // Handle successful registration
+          alert('Registration successful!');
+        }
       })
       .catch(error => console.error('Error:', error));
     });
   });
-});
 
+
+
+    document.addEventListener('click', async function(event) {
+      if (event.target.classList.contains('cancel-button')) {
+        const serviceID = event.target.dataset.serviceId;
+        const userID = event.target.dataset.userId;
+
+        try {
+          const response = await fetch('/cancel-registration', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ serviceID, userID })
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          if (data.success) {
+            // Handle successful cancellation (e.g., show a message to the user)
+            alert('Registration canceled successfully!');
+          } else {
+            alert("not signed up");
+            // Handle error (e.g., show a message to the user)
+          }
+        } catch (error) {
+          console.error('Error canceling registration:', error);
+          // Handle error (e.g., show a message to the user)
+        }
+      }
+    });
+  });
+
+  
 </script>
+
 
 </body>
 </html>

@@ -1,0 +1,43 @@
+<!-- Only for Yu -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Contacts - My Website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/styles/common.css">
+  <link rel="stylesheet" type="text/css" href="/styles/header-footer.css">
+  <link rel="stylesheet" type="text/css" href="/styles/control.css">
+</head>
+<body>
+<!-- contacts.ejs -->
+<%- include('./header') %>
+<main>
+  <h1>Contact List</h1>
+  <ul>
+    <% users.forEach(user => { %>
+      <li>
+        Name: <%= user.name %>, 
+        Email: <%= user.email %>, 
+        Status: <%= user.permission %> 
+        <form action="/updatePermission" method="post" style="display: inline;">
+          <input type="hidden" name="userId" value="<%= user.id %>">
+          <select name="newPermission">
+            <option value="0">Regular user</option>
+            <option value="1">CEO</option>
+            <option value="2">Admin</option>
+            <option value="3">Able to create events</option>
+          </select>
+          <button type="submit">Update Permission</button>
+        </form>
+      </li> 
+    <% }); %>
+  </ul>
+</main>
+<%- include('./footer') %>
+
+</body>
+</html>
+
+
+

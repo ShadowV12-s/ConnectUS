@@ -1,0 +1,45 @@
+/* public/styles/calendar.css */
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.calendar {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#currentMonthYear {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+button {
+  margin: 5px;
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  max-width: 100%;
+}
+
+.day {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 20px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.day:hover {
+  background-color: #f0f0f0;
+}

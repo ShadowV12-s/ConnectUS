@@ -11,14 +11,15 @@ const db = new sqlite3.Database('./data/mydatabase.db', (error) => {
 
     // Create the users table if it doesn't exist
     db.run(`
-      CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        googleId TEXT,
-        email TEXT,
-        name TEXT,
-        picture TEXT
-      )
-    `);
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      googleId TEXT,
+      email TEXT,
+      name TEXT,
+      picture TEXT,
+      permission INTEGER DEFAULT 0 -- New column with a default value of 0
+    )
+  `);
   }
 });
 // Function to insert a new user
@@ -52,7 +53,8 @@ function getUserByGoogleId(googleId) {
   });
 }
 
+
 module.exports = {
   insertUser,
-  getUserByGoogleId
+  getUserByGoogleId,
 };

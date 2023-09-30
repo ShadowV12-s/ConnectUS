@@ -3,22 +3,31 @@
     <nav class="nav">
       <button class="nav__toggle" onclick="toggleNav()">☰</button>
       <ul class="nav__wrapper">
+        <li class="brand"><a href="/"><span>C</span>onnectUS</a></li>
         <li class="nav__item"><a href="/">Home</a></li>
         <li class="nav__item"><a href="/service">Services</a></li>
-        <li class="nav__item"><a href="/calender">Calendar</a></li>
-        <li class="brand"><a href="/"><span>C</span>onnectUS</a></li>
+        <li class="nav__item"><a href="/calendar">Calendar</a></li>
         <li class="nav__item"><a href="/profile"> My Profile</a></li>
         <li class="nav__item"><a href="/about">About</a></li>
 
         <% if (user) { %>
-          <li class="nav__item"><a href="/sign-out">SignOut</a></li>
+          <li class="nav__item"><a href="/sign-out">Sign Out</a></li>
         <% } else { %>
-          <li class="nav__item" id="authButton"><a href="/sign-in">SignIn</a></li>
+          <li class="nav__item" id="authButton"><a href="/sign-in">Sign In</a></li>
         <% } %>
+        <% if (user && user.permission == 1) { %>
+          <li class="nav__item"><a href="/control"> Master Control</a></li>
+        <% } else if (user && user.permission == 2) { %>
+          <li class="nav__item"><a href="/control2">Admin Control</a></li>
+        <% } else if (user && user.permission == 3) { %>
+          <li class="nav__item"><a href="/control3">Submit Events</a></li>
+        <% } %>
+        
       </ul>
     </nav>
   </div>
 </header>
+
 
 <script>
   function toggleNav() {

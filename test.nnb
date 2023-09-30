@@ -259,6 +259,95 @@
                     ]
                 }
             ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const sqlite3 = require('sqlite3').verbose();\r\n\r\n// Connect to the SQLite3 database\r\nconst db = new sqlite3.Database('./data/mydatabase.db', (error) => {\r\n  if (error) {\r\n    console.error('Database connection error:', error);\r\n  } else {\r\n    console.log('Connected to the database.');\r\n\r\n    // Create the users table if it doesn't exist\r\n    db.run(`\r\n    CREATE TABLE IF NOT EXISTS users (\r\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\r\n      googleId TEXT,\r\n      email TEXT,\r\n      name TEXT,\r\n      picture TEXT,\r\n      permission INTEGER DEFAULT 0 -- New column with a default value of 0\r\n    )\r\n  `);\r\n  }\r\n});"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                "Connected to the database.",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "db.run(`DROP TABLE IF EXISTS users`, (err) => {\r\n    if (err) {\r\n      console.error(err);\r\n    }\r\n    // Then, re-run the CREATE TABLE statement\r\n  });\r\n  "
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "Database {}"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const sqlite3 = require('sqlite3').verbose();\r\n\r\n// Open a connection to the database\r\nconst db = new sqlite3.Database('data/mydatabase.db');\r\n\r\n// Define the user ID and the new permission value\r\nconst userId = 1;\r\nconst newPermission = 1;\r\n\r\n// Update the permission\r\nconst sql = `UPDATE users SET permission = ? WHERE id = ?`;\r\n\r\ndb.run(sql, [newPermission, userId], function(err) {\r\n  if (err) {\r\n    return console.error(err.message);\r\n  }\r\n  console.log(`Row(s) updated: ${this.changes}`);\r\n});\r\n\r\n// Close the database connection\r\ndb.close();\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "Database {}"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Row(s) updated: 1",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

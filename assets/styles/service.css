@@ -76,26 +76,6 @@
   
 }
 
-/* Use relative units for margin */
-.submit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 3.125rem; /* Use relative unit 'rem' */
-}
-
-/* Use relative units for width, height, transition, and list-style */
-.submitButton {
-  width: auto;
-  height: auto;
-  transition: background-color 0.3s;
-  list-style: none;
-}
-
-/* Use relative units for background color */
-.submitButton:hover {
-  background-color: rgb(227, 11, 11);
-}
 
 
  #confirmation-dialog {
@@ -135,3 +115,4 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
   }
+

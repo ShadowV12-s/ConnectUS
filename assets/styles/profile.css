@@ -96,3 +96,10 @@ p1 {
   align-items: center;
   font-size: 3.75rem; /* Use relative unit 'rem' */
 }
+
+
+.serviceText {
+  display: flex;
+  flex-direction: column;
+  border: grey 1px solid;
+}
